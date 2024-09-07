@@ -11,16 +11,16 @@ namespace Prototype
         static void Main(string[] args)
         {
             Customer customer1 = new Customer { FirstName = "Melisa", LastName="Akkuş",City="Ankara",Id=10};
-            //elimdeki nesneyi kullanarak o nesnenin bir klonunu oluşturacağım
 
             var customer2 = (Customer)customer1.Clone();
             //nesneyi klonladığımızda onu Person olarak alıyor ; customer2. dediğimizde city gelmedi,(Customer) ekledik
+            customer2.Id = 1234;
             customer2.FirstName = "Salih";
+            customer2.City = "Bursa";
 
-            Console.WriteLine(customer1.FirstName);
-            Console.WriteLine(customer2.FirstName);
+            Console.WriteLine("Name: " + customer1.FirstName + " Id: " + customer1.Id + " City: " + customer1.City);
+            Console.WriteLine("Name: " + customer2.FirstName + " Id: " + customer2.Id + " City: " + customer2.City);
             Console.ReadLine();
-            //yeni bir nesne oluşturuluyor ikisi ayrı nesne isimleri birbirini etkilemiyor
         }
     }
 
@@ -38,9 +38,9 @@ namespace Prototype
     {
         public string City { get; set; }
 
-        public override Person Clone() //elimizdeki Customerı klonlamamızı sağlar
+        public override Person Clone()
         {
-            return (Person)MemberwiseClone();
+            return (Person)MemberwiseClone(); 
         }
     }
 
@@ -48,7 +48,7 @@ namespace Prototype
     {
         public decimal Salary { get; set; }
 
-        public override Person Clone() //elimizdeki Customerı klonlamamızı sağlar
+        public override Person Clone()
         {
             return (Person)MemberwiseClone();
         }
@@ -57,11 +57,11 @@ namespace Prototype
 
 //Amaç nesne üretim maliyetlerini minimize etmektir
 //Elimizdeki temel bir sınıfın prototipini oluşturup onun üzerinden yeni nesne klonlama sürecini sürdürebiliriz.
+//MemberwiseClone(), bir nesnenin yüzeysel (shallow copy) kopyasını oluşturur. 
 
 //Prototype Design Pattern, yazılım tasarımında kullanılan bir kreasyonel tasarım desenidir.
 //Bu desen, mevcut bir nesnenin kopyalarını oluşturarak yeni nesneler yaratmayı sağlar. Kopyalama işlemi, genellikle
 //derin kopya (deep copy) veya yüzeysel kopya (shallow copy) yöntemleriyle gerçekleştirilir.
-
 //Bir oyun geliştirdiğinizi düşünün. Bu oyunda birçok farklı türde düşman (enemy) var ve
 //her düşmanın farklı bir yapısı ve özellikleri bulunuyor. Ancak, bu düşmanları sürekli olarak sıfırdan yaratmak yerine,
 //mevcut bir düşmanın kopyasını alarak, özelliklerini değiştirmek ve oyuna eklemek çok daha verimli olur.
